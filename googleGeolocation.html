@@ -46,7 +46,7 @@
                  myMarker = new google.maps.Marker({
                     position: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
                     map: new google.maps.Map(document.getElementById("map")),
-                    icon: 'http://images.goodsam.com/goodsam.com/icon/campground/icon-pets.png'
+                    icon: 'https://files.slack.com/files-tmb/T67BZGM6H-F7ETH8603-b9906a6fdd/paw_360.png'
                 });
               }
 
@@ -57,11 +57,18 @@
               function watchSuccess(position) {
                   var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
                   // set marker position
-                  marker.setPosition(latLng);
+                  myMarker.setPosition(latLng);
               }
-
-          });
-        } else {
+              function watchError(err) {
+                console.warn('ERROR(' + err.code + '): ' + err.message);
+              }
+              var watchOptions = {
+                          enableHighAccuracy: false,
+                          timeout: 5000,
+                          maximumAge: 0
+                        };
+          }
+        else {
           // Browser doesn't support Geolocation
           handleLocationError(false, infoWindow, map.getCenter());
         }
