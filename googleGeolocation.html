@@ -35,20 +35,6 @@
 
         // Try HTML5 geolocation.
         if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function(position) {
-            var pos = {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude
-            };  
-            map.setCenter(pos);
-            map.setZoom(14);
-            var marker = new google.maps.Marker({
-              position: pos,
-              map: map,
-              icon: "http://images.goodsam.com/goodsam.com/icon/campground/icon-pets.png"
-            });
-            }, 
-            function() {handleLocationError(true, infoWindow, map.getCenter());
 
             var myMarker = null;
 
@@ -60,7 +46,7 @@
                  myMarker = new google.maps.Marker({
                     position: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
                     map: new google.maps.Map(document.getElementById("map")),
-                    icon: 'img/icons/myicon.png'
+                    icon: 'http://images.goodsam.com/goodsam.com/icon/campground/icon-pets.png'
                 });
               }
 
@@ -73,7 +59,7 @@
                   // set marker position
                   marker.setPosition(latLng);
               }
-              
+
           });
         } else {
           // Browser doesn't support Geolocation
