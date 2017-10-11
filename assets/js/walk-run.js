@@ -55,7 +55,7 @@
             marker = new google.maps.Marker({
               position: pos,
               map: map,
-              icon: "../Wagtive/assets/images/paw.png"
+              icon: "./assets/images/paw.png"
             });
             watchID = navigator.geolocation.watchPosition(showLocation, errorHandler, options);
           }, function() {
