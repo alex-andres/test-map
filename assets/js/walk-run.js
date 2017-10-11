@@ -35,7 +35,7 @@
                 path += latitude,longitude+"|";
 
             };
-            console.log(path);
+            console.log(pointArrary);
 
             // alert("Latitude : " + latitude + " Longitude: " + longitude);
             setMarkerPosition(marker,position);
@@ -63,8 +63,8 @@
             map.setCenter(pos);
             map.setZoom(14);
             var options = {
-              enableHighAccuracy: false,
-              timeout:Infinity,
+              enableHighAccuracy: true,
+              timeout:5000,
               maximumAge:0
             };
             marker = new google.maps.Marker({
