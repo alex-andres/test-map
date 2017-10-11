@@ -4,6 +4,8 @@
       // locate you.
       var map, infoWindow;
       var marker
+      var path = "";
+      var pointArrary = [];
 
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
@@ -22,6 +24,19 @@
         function showLocation(position) {
             var latitude = position.coords.latitude;
             var longitude = position.coords.longitude;
+            for (var i = 0; i < pointArrary.length; i++) {
+              if (i === 0) 
+                path = latitude,longitude+"|";
+              
+              else if (i === pointArrary.length -1 )
+                path += latitude,longitude;
+              else 
+                path += latitude,longitude+"|";
+
+            };
+            console.log(path);
+            pointArrary.push(latitude,longitude);
+
             // alert("Latitude : " + latitude + " Longitude: " + longitude);
             setMarkerPosition(marker,position);
             console.log(latitude);
