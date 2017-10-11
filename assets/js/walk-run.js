@@ -24,6 +24,7 @@
         function showLocation(position) {
             var latitude = position.coords.latitude;
             var longitude = position.coords.longitude;
+            pointArrary.push(latitude,longitude);
             for (var i = 0; i < pointArrary.length; i++) {
               if (i === 0) 
                 path = latitude,longitude+"|";
@@ -35,7 +36,6 @@
 
             };
             console.log(path);
-            pointArrary.push(latitude,longitude);
 
             // alert("Latitude : " + latitude + " Longitude: " + longitude);
             setMarkerPosition(marker,position);
