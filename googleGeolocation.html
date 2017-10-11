@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
     <title>Geolocation</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
@@ -21,66 +22,174 @@
   <body>
     <div id="map"></div>
     <script>
+
+       var map;
+       var currentPositionMarker;
+       var mapCenter;
+        function geo_success(position) {
+            mapCenter = new google.maps.LatLng(34.052235,-118.243683),
+            map;
+        };
+ 
+        // change the zoom if you want
+
+        function initMap(){
+            map = new google.maps.Map(document.getElementById("map"), {
+               zoom: 18,
+               center: currentPositionMarker,
+               mapTypeId: google.maps.MapTypeId.ROADMAP
+             });
+          };
+          // map = new google.maps.Map(document.getElementById("map"), {
+          //    zoom: 18,
+          //    center: mapCenter,
+          //    // mapTypeId: google.maps.MapTypeId.ROADMAP
+          //  });
+          // infoWindow = new google.maps.InfoWindow;
+        // };
+ 
+        function locError(error) {
+            // tell the user if the current position could not be located
+            alert("The current position could not be found!");
+        };
+ 
+        // current position of the user
+        function setCurrentPosition(pos) {
+            currentPositionMarker = new google.maps.Marker({
+                map: map,
+                position: new google.maps.LatLng(
+                    pos.coords.latitude,
+                    pos.coords.longitude),
+                title: "Current Position",  
+                icon: 'https://files.slack.com/files-tmb/T67BZGM6H-F7ETH8603-b9906a6fdd/paw_360.png'
+            });
+            map.panTo(new google.maps.LatLng(
+                    pos.coords.latitude,
+                    pos.coords.longitude
+                ));
+        };
+ 
+        function displayAndWatch(position) {
+         
+            // set current position
+            setCurrentPosition(position);
+             
+            // watch position
+            watchCurrentPosition();
+        };
+ 
+        function watchCurrentPosition() {
+            var positionTimer = navigator.geolocation.watchPosition(
+                function (position) {
+                    setMarkerPosition(
+                        currentPositionMarker,
+                        position
+                    );
+                });
+        };
+ 
+        function setMarkerPosition(marker, position) {
+            marker.setPosition(
+                new google.maps.LatLng(
+                    position.coords.latitude,
+                    position.coords.longitude)
+            );
+        };
+ 
+        function initLocationProcedure() {
+            initMap();
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(displayAndWatch, locError);
+            } 
+            else {
+                // tell the user if a browser doesn't support this amazing API
+                alert("Your browser does not support the Geolocation API!");
+            }
+        };
+ 
+        // initialize with a little help of jQuery
+       // document.addEventListener("DOMContentLoaded", function(event) { 
+       //      initLocationProcedure();
+       //  }); 
+        // $(document).ready(function() {
+        //     initLocationProcedure();
+        // });
       // Note: This example requires that you consent to location sharing when
       // prompted by your browser. If you see the error "The Geolocation service
       // failed.", it means you probably did not give permission for the browser to
       // locate you.
-      var map, infoWindow;
-      function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat:34.052235, lng:-118.243683},
-          zoom: 9
-        });
-        infoWindow = new google.maps.InfoWindow;
+      // var map, infoWindow;
+      // function initMap() {
+      //   map = new google.maps.Map(document.getElementById('map'), {
+      //     center: {lat:34.052235, lng:-118.243683},
+      //     zoom: 9
+      //   });
+      //   infoWindow = new google.maps.InfoWindow;
+      // };
 
-        // Try HTML5 geolocation.
-        if (navigator.geolocation) {
 
-            var myMarker = null;
 
-              // get current position
-              navigator.geolocation.getCurrentPosition(showPosition);
+      //   if (navigator.geolocation) {
+      //     function geo_success(position) {
+      //         do_something(position.coords.latitude, position.coords.longitude);
+      //       }
 
-              // show current position on map
-              function showPosition(position) {
-                 myMarker = new google.maps.Marker({
-                    position: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
-                    map: new google.maps.Map(document.getElementById("map")),
-                    icon: 'https://files.slack.com/files-tmb/T67BZGM6H-F7ETH8603-b9906a6fdd/paw_360.png'
-                });
-              }
+      //       function geo_error() {
+      //         alert("Sorry, no position available.");
+      //       }
 
-              // watch user's position
-              navigator.geolocation.watchPosition(watchSuccess, watchError, watchOptions);
+      //       var geo_options = {
+      //         enableHighAccuracy: true, 
+      //         maximumAge        : 30000, 
+      //         timeout           : 27000
+      //       };
 
-              // change marker location everytime position is updated
-              function watchSuccess(position) {
-                  var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-                  // set marker position
-                  myMarker.setPosition(latLng);
-              }
-              function watchError(err) {
-                console.warn('ERROR(' + err.code + '): ' + err.message);
-              }
-              var watchOptions = {
-                          enableHighAccuracy: false,
-                          timeout: 5000,
-                          maximumAge: 0
-                        };
-          }
-        else {
-          // Browser doesn't support Geolocation
-          handleLocationError(false, infoWindow, map.getCenter());
-        }
-      }
+      //       var wpid = navigator.geolocation.watchPosition(geo_success, geo_error, geo_options);
+      //       // var myMarker = null;
 
-      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-        infoWindow.setPosition(pos);
-        infoWindow.setContent(browserHasGeolocation ?
-                              'Error: The Geolocation service failed.' :
-                              'Error: Your browser doesn\'t support geolocation.');
-        infoWindow.open(map);
-      }
+      //       //   // get current position
+      //       //   navigator.geolocation.getCurrentPosition(showPosition);
+
+            //   // show current position on map
+            //   function showPosition(position) {
+            //      myMarker = new google.maps.Marker({
+            //         position: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
+            //         map: new google.maps.Map(document.getElementById("map")),
+            //         icon: 'https://files.slack.com/files-tmb/T67BZGM6H-F7ETH8603-b9906a6fdd/paw_360.png'
+            //     });
+            //   }
+
+            //   // watch user's position
+            //   navigator.geolocation.watchPosition(watchSuccess, watchError, watchOptions);
+
+            //   // change marker location everytime position is updated
+            //   function watchSuccess(position) {
+            //       var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            //       // set marker position
+            //       myMarker.setPosition(latLng);
+            //   }
+            //   function watchError(err) {
+            //     console.warn('ERROR(' + err.code + '): ' + err.message);
+            //   }
+            //   var watchOptions = {
+            //               enableHighAccuracy: false,
+            //               timeout: 5000,
+            //               maximumAge: 0
+            //             };
+          // }
+      //   else {
+      //     // Browser doesn't support Geolocation
+      //     handleLocationError(false, infoWindow, map.getCenter());
+      //   }
+      
+
+      // function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+      //   infoWindow.setPosition(pos);
+      //   infoWindow.setContent(browserHasGeolocation ?
+      //                         'Error: The Geolocation service failed.' :
+      //                         'Error: Your browser doesn\'t support geolocation.');
+      //   infoWindow.open(map);
+      // }
     </script>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDtHj-6_wlia95TBLbIR3NJK_EB6il_i3M&callback=initMap">
