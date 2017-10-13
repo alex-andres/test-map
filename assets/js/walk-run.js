@@ -11,6 +11,7 @@
       var coordMinusArray = [];
       var outputDiv = document.getElementById('output');
       var distance;
+      var totalDistance;
 
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
@@ -94,7 +95,7 @@
             var options = {
               enableHighAccuracy: true,
               timeout:Infinity,
-              maximumAge:0
+              maximumAge:500
             };
             marker = new google.maps.Marker({
               position: pos,
@@ -196,8 +197,10 @@
                    $("#output").html("Your Distance Traveled:" + distance);
 
               };
-              
+              console.log( typeof distance);
+              console.log(distance);
               distance += distance 
+ $("#output").html("Your Distance Traveled:" + distance);              
             
             }
 
