@@ -122,6 +122,7 @@
 
       $("#stop").on("click", function(e){
         e.preventDefault();
+        showLocation();
         // clearInterval(interval);
 
       });
@@ -143,8 +144,8 @@
 
         function distanceCalc(){
 
-        
-          var i = 0;
+          console.log()
+          var i = 1;
           // var distance = results[j].distance.text;
           var service = new google.maps.DistanceMatrixService;
           service.getDistanceMatrix({
@@ -159,7 +160,6 @@
             alert('Error was: ' + status);
           } else{
             var originList = response.originAddresses;
-            console.log(originList);
             var destinationList = response.destinationAddresses;
             outputDiv = document.getElementById('output');
             outputDiv.innerHTML = '';
@@ -189,14 +189,13 @@
                 geocoder.geocode({'address': destinationList[j]},);
                 outputDiv.innerHTML += originList[i] + ' to ' + destinationList[j] +
                     ': ' + results[j].distance.text + ' in ' +
-                    results[j].duration.text + distance + '<br>';
+                    results[j].duration.text + '<br>';
               }
             }
 
           }
         });
       i++;
-      j++; 
     };
   };
 
