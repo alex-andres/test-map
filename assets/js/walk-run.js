@@ -192,7 +192,7 @@
                 geocoder.geocode({'address': destinationList[j]},);
                   distance = results[j].distance 
                   console.log(distance.value);
-              $("#output").html("Your Distance Traveled:" + distance.value); 
+              $("#output").html("Your Distance Traveled:" + distance.text); 
 
                 if (trackBol === true)
                    $("#output").html("Your Distance Traveled:" + distance);
