@@ -190,7 +190,7 @@
   //       });
   //     }  
   //   };
-  // };
+  };
         
       function handleLocationError(browserHasGeolocation, infoWindow, pos) {
         infoWindow.setPosition(pos);
