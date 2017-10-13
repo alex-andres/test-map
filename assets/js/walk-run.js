@@ -10,6 +10,7 @@
       var interval;
       var coordMinusArray = [];
       var outputDiv = document.getElementById('output');
+      var distance;
 
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
@@ -94,7 +95,7 @@
             var options = {
               enableHighAccuracy: true,
               timeout:Infinity,
-              maximumAge:0
+              maximumAge:500
             };
             marker = new google.maps.Marker({
               position: pos,
@@ -122,7 +123,8 @@
 
       $("#stop").on("click", function(e){
         e.preventDefault();
-        showLocation();
+        $("#output").html("Your Distance Traveled:" + distance);
+        
         // clearInterval(interval);
 
       });
@@ -144,7 +146,8 @@
 
         function distanceCalc(){
 
-          console.log()
+
+
           var i = 1;
           // var distance = results[j].distance.text;
           var service = new google.maps.DistanceMatrixService;
@@ -187,10 +190,12 @@
 );
               for (var j = 0; j < results.length; j++) {
                 geocoder.geocode({'address': destinationList[j]},);
-                outputDiv.innerHTML += originList[i] + ' to ' + destinationList[j] +
-                    ': ' + results[j].distance.text + ' in ' +
-                    results[j].duration.text + '<br>';
-              }
+                  distance = results[j].distance 
+
+              };
+              
+              distance += distance 
+            
             }
 
           }
