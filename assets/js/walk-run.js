@@ -95,7 +95,7 @@
             var options = {
               enableHighAccuracy: true,
               timeout:Infinity,
-              maximumAge:500
+              maximumAge:0
             };
             marker = new google.maps.Marker({
               position: pos,
