@@ -82,7 +82,6 @@
 
         $("#start").on("click", function(e){
           e.preventDefault();
-          trackBol = true;
           // interval = window.setInterval(makePath, 10000);
           if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(function(position) {
@@ -123,7 +122,7 @@
 
       $("#stop").on("click", function(e){
         e.preventDefault();
-        $("#output").html("Your Distance Traveled:" + distance);
+        trackBol = true;
         
         // clearInterval(interval);
 
@@ -191,6 +190,10 @@
               for (var j = 0; j < results.length; j++) {
                 geocoder.geocode({'address': destinationList[j]},);
                   distance = results[j].distance 
+                  console.log(distance);
+
+                if (trackBol === true)
+                   $("#output").html("Your Distance Traveled:" + distance);
 
               };
               
@@ -199,6 +202,7 @@
             }
 
           }
+          console.log(distance);
         });
       i++;
     };
