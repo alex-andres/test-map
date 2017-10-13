@@ -145,7 +145,7 @@
 
         
           var i = 0;
-          var distance = results[j].distance.text;
+          // var distance = results[j].distance.text;
           var service = new google.maps.DistanceMatrixService;
           service.getDistanceMatrix({
             origins: [coordArray[i-1]],
