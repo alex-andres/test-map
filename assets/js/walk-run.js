@@ -5,8 +5,7 @@ var coordArray = [];
 var trackBol;
 var interval;
 var outputDiv = document.getElementById('output');
-var distance;
-var totalDistance;
+var totalDistance = 0;
 var lat1 = 0;
 var lng1 = 0;
 var lat2 = 0;
@@ -15,7 +14,7 @@ var lng2 = 0;
 function initMap() {
 	map = new google.maps.Map(document.getElementById('map'), {
 		center: { lat: 34.052235, lng: -118.243683 },
-		zoom: 9
+		zoom: 13
 	});
 	infoWindow = new google.maps.InfoWindow;
 
@@ -36,23 +35,26 @@ function initMap() {
 		setMarkerPosition(marker, position);
 		storeNewCoord(lat, lng);
 		if (lat1 === 0){
-			lat1 = lat;
-			lng1 = lng;
+			lat1 = parseFloat(lat);
+			lng1 = parseFloat(lng);
 		}
 		else {
 			lat2 = lat1;
 			lng2 = lng1;
-			lat1 = lat;
-			lng2 = lat
+			lat1 = parseFloat(lat);
+			lng2 = parseFloat(lng);
+			console.log(lat1, lng1, lat2, lng2)
 			getDistanceFromLatLon(lat1, lng1, lat2, lng2);
 		}
 
 	};
+	
 	//function that will allow us to draw lines with previous coordinates
 	function storeNewCoord(lat, lng) {
 		var coord = "new google.maps.LatLng(" + lat.toString() + ", " + lng.toString() + ")";
 		coordArray.push(coord);
 	};
+
 	//function that calculates distance using great circle method (arc instead of flat line)
 	function getDistanceFromLatLon(lat1,lon1,lat2,lon2) {
 	  var R = 3959; // Radius of the earth in miles
@@ -65,8 +67,9 @@ function initMap() {
 	    ; 
 	  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
 	  var d = R * c; // Distance in miles
-	  totalDistance += d;
-	  $("#distanceOutput").html(totalDistance);
+	  totalDistance += d.toFixed(2);
+	  console.log(d);
+	  $("#distanceOutput").html("<h4>" + totalDistance + "</h4>");
 	};
 	//function that converts degs to radians
 	function deg2rad(deg) {
