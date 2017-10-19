@@ -66,7 +66,7 @@ function initMap() {
 	  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
 	  var d = R * c; // Distance in miles
 	  totalDistance += d;
-	  $("#distance").html(totalDistance);
+	  $("#distanceOutput").html(totalDistance);
 	};
 	//function that converts degs to radians
 	function deg2rad(deg) {
