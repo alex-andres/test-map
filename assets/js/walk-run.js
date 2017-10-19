@@ -70,8 +70,7 @@ function initMap() {
 	  var d = R * c; // Distance in miles
 	  distance += d;
 	  totalDistance = distance.toFixed(2);
-	  console.log(d);
-	  $("#distanceOutput").html(totalDistance);
+	  $("#distanceOutput").html("<h4>" + totalDistance + "</h4>");
 	};
 	//function that converts degs to radians
 	function deg2rad(deg) {
