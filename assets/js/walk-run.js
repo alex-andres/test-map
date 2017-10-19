@@ -5,6 +5,7 @@ var coordArray = [];
 var trackBol;
 var interval;
 var outputDiv = document.getElementById('output');
+var distance = 0;
 var totalDistance = 0;
 var lat1 = 0;
 var lng1 = 0;
@@ -48,7 +49,7 @@ function initMap() {
 		}
 
 	};
-	
+
 	//function that will allow us to draw lines with previous coordinates
 	function storeNewCoord(lat, lng) {
 		var coord = "new google.maps.LatLng(" + lat.toString() + ", " + lng.toString() + ")";
@@ -67,9 +68,10 @@ function initMap() {
 	    ; 
 	  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
 	  var d = R * c; // Distance in miles
-	  totalDistance += d.toFixed(2);
+	  distance += d;
+	  totalDistance = distance.toFixed(2);
 	  console.log(d);
-	  $("#distanceOutput").html("<h4>" + totalDistance + "</h4>");
+	  $("#distanceOutput").html(totalDistance);
 	};
 	//function that converts degs to radians
 	function deg2rad(deg) {
