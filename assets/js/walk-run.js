@@ -40,12 +40,21 @@ function initMap() {
 			lng1 = parseFloat(lng);
 		}
 		else {
-			lat2 = lat1;
-			lng2 = lng1;
+			lat2 = parseFloat(lat1);
+			lng2 = parseFloat(lng1);
 			lat1 = parseFloat(lat);
-			lng2 = parseFloat(lng);
+			lng1 = parseFloat(lng);
 			console.log(lat1, lng1, lat2, lng2)
 			getDistanceFromLatLon(lat1, lng1, lat2, lng2);
+
+			var PathStyle = new google.maps.Polyline({
+			  path: coordArray,
+			  strokeColor: "#FF0000",
+			  strokeOpacity: 1.0,
+			  strokeWeight: 2
+			});
+
+			PathStyle.setMap(map);
 		}
 
 	};
@@ -84,6 +93,12 @@ function initMap() {
 			alert("Error: Position is unavailable!");
 		}
 	};
+	var PathStyle = new google.maps.Polyline({
+    path: coordArray,
+    strokeColor: "#FF0000",
+    strokeOpacity: 1.0,
+    strokeWeight: 2
+  });
 
 	$("#start").on("click", function(e) {
 		e.preventDefault();
@@ -117,7 +132,7 @@ function initMap() {
 				var options = {
 					enableHighAccuracy: true,
 					timeout: Infinity,
-					maximumAge: 1000
+					maximumAge: 0
 				};
 				marker = new google.maps.Marker({
 					position: pos,
